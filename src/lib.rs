@@ -1,4 +1,4 @@
-//! [![github]](https://github.com/dtolnay/automod)&ensp;[![crates-io]](https://crates.io/crates/automod)&ensp;[![docs-rs]](https://docs.rs/automod)
+//! [![github]](https://github.com/yvvki/automoduse)&ensp;[![crates-io]](https://crates.io/crates/automoduse)&ensp;[![docs-rs]](https://docs.rs/automoduse)
 //!
 //! [github]: https://img.shields.io/badge/github-8da0cb?style=for-the-badge&labelColor=555555&logo=github
 //! [crates-io]: https://img.shields.io/badge/crates.io-fc8d62?style=for-the-badge&labelColor=555555&logo=rust
@@ -12,7 +12,7 @@
 //!
 //! ```
 //! # const IGNORE: &str = stringify! {
-//! automod::dir!("path/to/directory");
+//! automoduse::dir!("path/to/directory");
 //! # };
 //! ```
 //!
@@ -24,7 +24,7 @@
 //! It is an error if the given directory contains no source files.
 //!
 //! The macro takes an optional visibility to apply on the generated modules:
-//! `automod::dir!(pub "path/to/directory")`.
+//! `automoduse::dir!(pub "path/to/directory")`.
 //!
 //! # Example
 //!
@@ -40,12 +40,12 @@
 //!
 //! We would like to be able to toss files in this directory and have them
 //! automatically tested, without listing them in some explicit list of modules.
-//! Automod solves this by adding *tests/regression.rs* containing:
+//! Automoduse solves this by adding *tests/regression.rs* containing:
 //!
 //! ```
 //! # const IGNORE: &str = stringify! {
 //! mod regression {
-//!     automod::dir!("tests/regression");
+//!     automoduse::dir!("tests/regression");
 //! }
 //! # };
 //! ```
@@ -61,7 +61,7 @@
 //! # };
 //! ```
 
-#![doc(html_root_url = "https://docs.rs/automod/1.0.15")]
+#![doc(html_root_url = "https://docs.rs/automoduse/1.0.0")]
 #![allow(
     clippy::enum_glob_use,
     clippy::needless_pass_by_value,

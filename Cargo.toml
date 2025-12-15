@@ -1,13 +1,13 @@
 [package]
-name = "automod"
-version = "1.0.15"
-authors = ["David Tolnay <dtolnay@gmail.com>"]
+name = "automoduse"
+version = "1.0.0"
+authors = ["David Tolnay <dtolnay@gmail.com>", "Yuuki Rika <yvvki@kekkon.nexus>"]
 categories = ["development-tools::build-utils", "filesystem", "no-std", "no-std::no-alloc"]
 description = "Pull in every source file in a directory as a module."
-documentation = "https://docs.rs/automod"
+documentation = "https://docs.rs/automoduse"
 edition = "2021"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/dtolnay/automod"
+repository = "https://github.com/yvvki/automoduse"
 rust-version = "1.68"
 
 [lib]

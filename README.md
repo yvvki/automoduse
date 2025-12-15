@@ -1,22 +1,22 @@
-Automod
-=======
+Automoduse
+==========
 
-[<img alt="github" src="https://img.shields.io/badge/github-dtolnay/automod-8da0cb?style=for-the-badge&labelColor=555555&logo=github" height="20">](https://github.com/dtolnay/automod)
-[<img alt="crates.io" src="https://img.shields.io/crates/v/automod.svg?style=for-the-badge&color=fc8d62&logo=rust" height="20">](https://crates.io/crates/automod)
-[<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-automod-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/automod)
-[<img alt="build status" src="https://img.shields.io/github/actions/workflow/status/dtolnay/automod/ci.yml?branch=master&style=for-the-badge" height="20">](https://github.com/dtolnay/automod/actions?query=branch%3Amaster)
+[<img alt="github" src="https://img.shields.io/badge/github-yvvki/automoduse-8da0cb?style=for-the-badge&labelColor=555555&logo=github" height="20">](https://github.com/yvvki/automoduse)
+[<img alt="crates.io" src="https://img.shields.io/crates/v/automoduse.svg?style=for-the-badge&color=fc8d62&logo=rust" height="20">](https://crates.io/crates/automoduse)
+[<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-automoduse-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/automoduse)
+[<img alt="build status" src="https://img.shields.io/github/actions/workflow/status/yvvki/automoduse/ci.yml?branch=master&style=for-the-badge" height="20">](https://github.com/yvvki/automoduse/actions?query=branch%3Amaster)
 
 Pull in every source file in a directory as a module.
 
 ```toml
 [dependencies]
-automod = "1.0"
+automoduse = "1.0"
 ```
 
 ## Syntax
 
 ```rust
-automod::dir!("path/to/directory");
+automoduse::dir!("path/to/directory");
 ```
 
 This macro expands to one or more `mod` items, one for each source file in the
@@ -27,7 +27,7 @@ The path is given relative to the directory containing Cargo.toml.
 It is an error if the given directory contains no source files.
 
 The macro takes an optional visibility to apply on the generated modules:
-`automod::dir!(pub "path/to/directory")`.
+`automoduse::dir!(pub "path/to/directory")`.
 
 ## Example
 
@@ -43,11 +43,11 @@ individual numbered issues:
 
 We would like to be able to toss files in this directory and have them
 automatically tested, without listing them in some explicit list of modules.
-Automod solves this by adding *tests/regression.rs* containing:
+Automoduse solves this by adding *tests/regression.rs* containing:
 
 ```rust
 mod regression {
-    automod::dir!("tests/regression");
+    automoduse::dir!("tests/regression");
 }
 ```
 
