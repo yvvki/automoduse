@@ -6,7 +6,7 @@ Automoduse
 [<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-automoduse-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/automoduse)
 [<img alt="build status" src="https://img.shields.io/github/actions/workflow/status/yvvki/automoduse/ci.yml?branch=master&style=for-the-badge" height="20">](https://github.com/yvvki/automoduse/actions?query=branch%3Amaster)
 
-Pull in every source file in a directory as a module.
+Pull in every source file in a directory as a module and optionally re-export their contents.
 
 ```toml
 [dependencies]
@@ -16,18 +16,18 @@ automoduse = "1.0"
 ## Syntax
 
 ```rust
-automoduse::dir!("path/to/directory");
+automoduse::dir!("path/to/directory" pub use);
 ```
 
 This macro expands to one or more `mod` items, one for each source file in the
-specified directory.
+specified directory, and its contents re-exported with `pub use`.
 
 The path is given relative to the directory containing Cargo.toml.
 
 It is an error if the given directory contains no source files.
 
 The macro takes an optional visibility to apply on the generated modules:
-`automoduse::dir!(pub "path/to/directory")`.
+`automoduse::dir!(pub "path/to/directory" use)`.
 
 ## Example
 
@@ -47,7 +47,7 @@ Automoduse solves this by adding *tests/regression.rs* containing:
 
 ```rust
 mod regression {
-    automoduse::dir!("tests/regression");
+    automoduse::dir!("tests/regression" pub use);
 }
 ```
 

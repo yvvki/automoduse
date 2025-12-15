@@ -6,25 +6,25 @@
 //!
 //! <br>
 //!
-//! **Pull in every source file in a directory as a module.**
+//! **Pull in every source file in a directory as a module and optionally re-export their contents.**
 //!
 //! # Syntax
 //!
 //! ```
 //! # const IGNORE: &str = stringify! {
-//! automoduse::dir!("path/to/directory");
+//! automoduse::dir!("path/to/directory" pub use);
 //! # };
 //! ```
 //!
 //! This macro expands to one or more `mod` items, one for each source file in
-//! the specified directory.
+//! specified directory, and its contents re-exported with `pub use`.
 //!
 //! The path is given relative to the directory containing Cargo.toml.
 //!
 //! It is an error if the given directory contains no source files.
 //!
 //! The macro takes an optional visibility to apply on the generated modules:
-//! `automoduse::dir!(pub "path/to/directory")`.
+//! `automoduse::dir!(pub "path/to/directory" use)`.
 //!
 //! # Example
 //!
@@ -45,7 +45,7 @@
 //! ```
 //! # const IGNORE: &str = stringify! {
 //! mod regression {
-//!     automoduse::dir!("tests/regression");
+//!     automoduse::dir!("tests/regression" pub use);
 //! }
 //! # };
 //! ```
@@ -55,9 +55,12 @@
 //! ```
 //! # const IGNORE: &str = stringify! {
 //! mod issue1;
+//! pub use issue1::*;
 //! mod issue2;
+//! pub use issue2::*;
 //! /* ... */
 //! mod issue128;
+//! pub use issue128::*;
 //! # };
 //! ```
 
