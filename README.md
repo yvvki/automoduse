@@ -55,9 +55,12 @@ The macro invocation expands to:
 
 ```rust
 mod issue1;
+pub use issue1::*;
 mod issue2;
+pub use issue2::*;
 /* ... */
 mod issue128;
+pub use issue128::*;
 ```
 
 <br>
