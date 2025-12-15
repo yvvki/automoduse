@@ -9,7 +9,7 @@
 //    cargo test --example tests
 
 mod regression {
-    automoduse::dir!("examples/regression");
+    automoduse::dir!(pub "examples/regression" use);
 }
 
 fn main() {}

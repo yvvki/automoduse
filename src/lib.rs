@@ -81,11 +81,27 @@ use std::ffi::OsStr;
 use std::fs;
 use std::path::{Path, PathBuf};
 use syn::parse::{Parse, ParseStream};
+use syn::Token;
 use syn::{parse_macro_input, LitStr, Visibility};
+
+struct ArgUse {
+    vis: Visibility,
+    token: Token![use],
+}
+
+impl Parse for ArgUse {
+    fn parse(input: ParseStream) -> syn::Result<Self> {
+        Ok(ArgUse {
+            vis: input.parse()?,
+            token: input.parse()?,
+        })
+    }
+}
 
 struct Arg {
     vis: Visibility,
     path: LitStr,
+    arg_use: Option<ArgUse>,
 }
 
 impl Parse for Arg {
@@ -93,6 +109,11 @@ impl Parse for Arg {
         Ok(Arg {
             vis: input.parse()?,
             path: input.parse()?,
+            arg_use: if input.is_empty() {
+                None
+            } else {
+                Some(input.parse()?)
+            },
         })
     }
 }
@@ -103,20 +124,25 @@ pub fn dir(input: TokenStream) -> TokenStream {
     let vis = &input.vis;
     let rel_path = input.path.value();
 
+    let arg_use = &input.arg_use;
+
     let dir = match env::var_os("CARGO_MANIFEST_DIR") {
         Some(manifest_dir) => PathBuf::from(manifest_dir).join(rel_path),
         None => PathBuf::from(rel_path),
     };
 
     let expanded = match source_file_names(dir) {
-        Ok(names) => names.into_iter().map(|name| mod_item(vis, name)).collect(),
+        Ok(names) => names
+            .into_iter()
+            .map(|name| mod_use_item(vis, name, arg_use.as_ref()))
+            .collect(),
         Err(err) => syn::Error::new(Span::call_site(), err).to_compile_error(),
     };
 
     TokenStream::from(expanded)
 }
 
-fn mod_item(vis: &Visibility, name: String) -> TokenStream2 {
+fn mod_use_item(vis: &Visibility, name: String, arg_use: Option<&ArgUse>) -> TokenStream2 {
     let mut module_name = name.replace('-', "_");
     if module_name.starts_with(|ch: char| ch.is_ascii_digit()) {
         module_name.insert(0, '_');
@@ -130,9 +156,18 @@ fn mod_item(vis: &Visibility, name: String) -> TokenStream2 {
 
     let ident = Ident::new(&module_name, Span::call_site());
 
+    let quote_use = arg_use.map(|arg_use| {
+        let vis_use = &arg_use.vis;
+        let token_use = &arg_use.token;
+        quote! {
+            #vis_use #token_use #ident::*;
+        }
+    });
+
     quote! {
         #(#[path = #path])*
         #vis mod #ident;
+        #quote_use
     }
 }
 
