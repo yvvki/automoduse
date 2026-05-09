@@ -6,7 +6,9 @@ Automoduse
 [<img alt="docs.rs" src="https://img.shields.io/badge/docs.rs-automoduse-66c2a5?style=for-the-badge&labelColor=555555&logo=docs.rs" height="20">](https://docs.rs/automoduse)
 [<img alt="build status" src="https://img.shields.io/github/actions/workflow/status/yvvki/automoduse/ci.yml?branch=main&style=for-the-badge" height="20">](https://github.com/yvvki/automoduse/actions?query=branch%3Amain)
 
-Pull in every source file in a directory as a module and optionally re-export their contents.
+Pull in every source file in a directory as a module.
+A fork of [automod](https://crates.io/crates/automod) with the additional option
+to re-export the contents of the generated modules.
 
 ```toml
 [dependencies]
