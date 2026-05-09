@@ -1,6 +1,6 @@
 [package]
 name = "automoduse"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["David Tolnay <dtolnay@gmail.com>", "Yuuki Rika <yvvki@kekkon.nexus>"]
 categories = ["development-tools::build-utils", "filesystem", "no-std", "no-std::no-alloc"]
 description = "Pull in every source file in a directory as a module and optionally re-export their contents."
